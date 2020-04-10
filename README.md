@@ -2,7 +2,12 @@
 This repository is a submission of *Aisa Mijeno* for Getting and Cleaning Data course project. It has the instructions on how to run analysis on Human Activity recognition dataset.
 
 ### Dataset
+The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
 [Human Activity Recognition Using Smartphones](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
+
+Data for the project:
+[Data in zip File](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+
 
 ### Files
 `CodeBook.md` - a code book that describes the variables, the data, and any transformations or work that I performed to clean up the data
