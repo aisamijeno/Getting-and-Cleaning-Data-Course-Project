@@ -1,56 +1,46 @@
-## ============
-## Description:
-## ============
+## ====================
+## PROJECT DESCRIPTION:
+## ====================
 
-# This script performs the following Analysis steps:
-# - Read the Dataset
-# - Merges the training and the test sets to create one single data set.
-# - Extracts only the measurements on the mean and standard deviation for each measurement. 
-# - Uses descriptive activity names to name the activities in the data set
-# - Appropriately labels the data set with descriptive variable names. 
-# - Creates a second, independent tidy data set with the average of each variable 
-#   for each activity and each subject.
-
-# ---------------
-# Analysis steps:
-# ---------------
+# This script performs the following analysis steps:
+# - Read the dataset
+# - Merges sets to create single data set.
+# - Extracts the measurements on the mean and standard deviation. 
+# - Use descriptive activity names to name the activities in the data set.
+# - Labels the data set with descriptive variable names. 
+# - Creates a tidy data set with the average variable.
 
 source("./utility.R")  # now `get.filepath` function is in the namespace
 
-# 0. Get Current file directory
+# Get Current file directory
 
 current.wd <- get.filepath()
 folder.dataset <- file.path(current.wd, "dataset", "UCI HAR Dataset")
 folder.train <- file.path(folder.dataset, "train")
 folder.test <- file.path(folder.dataset, "test")
 
+# Merge sets to create single data set
 
-# 1. Merge training and test sets to create one single data set.
-# --------------------------------------------------------------
+message("Merging Datasets")
 
-message("Performing Step 1: Merging Datasets")
-
-# 1.1 Merge labeled data (i.e., X)
+# Merge labeled data (i.e., X)
 xTrain <- read.table(file.path(folder.train, "X_train.txt"))
 xTest <- read.table(file.path(folder.test, "X_test.txt"))
 X <- rbind(xTrain, xTest)
 
-# 1.2 Merge Subject data
+# Merge Subject data
 subTrain <- read.table(file.path(folder.train, "subject_train.txt"))
 subTest <- read.table(file.path(folder.test, "subject_test.txt"))
 subjects <- rbind(subTrain, subTest)
 
-# 1.3 Merge Labels
+# Merge Labels
 yTrain <- read.table(file.path(folder.train, "y_train.txt"))
 yTest <- read.table(file.path(folder.test, "y_test.txt"))
 y <- rbind(yTrain, yTest)
 
-# --------------------------------------------------------------------
-# 2. Extracts the measurements of the mean and the standard deviation 
-#    for each measurement.
-# --------------------------------------------------------------------
+# Extracts the measurements of the mean and the standard deviation 
 
-message("Performing Step 2: Get Mean and Std of Measurements")
+message("Get Mean and Std of Measurements")
 
 # Read the features
 features <- read.table(file.path(folder.dataset, "features.txt"))
@@ -62,11 +52,9 @@ names(X) <- features[features.selected, 2]
 names(X) <- gsub("\\(|\\)", "", names(X))  # Remove brackets
 names(X) <- gsub("\\-", " ", names(X))  # Replace dashes w/ blank spaces
 
-# -------------------------------------------------------------------------
-# 3. Uses descriptive activity names to name the activities in the dataset
-# -------------------------------------------------------------------------
+# Uses descriptive activity names to name the activities in the dataset
 
-message("Performing Step 3: Rename activities in the dataset")
+message("Rename activities in the dataset")
 
 # Read Activities
 activities <- read.table(file.path(folder.dataset, "activity_labels.txt"))
@@ -74,25 +62,20 @@ activities <- read.table(file.path(folder.dataset, "activity_labels.txt"))
 y[,1] <- activities[y[,1], 2]
 names(y) <- "activity"  # set names of labels (i.e., y) to 'activity'
 
-# ---------------------------------------------------------------------
-# 4. Appropriately labels the data set with descriptive activity names.
-# ---------------------------------------------------------------------
+# Labels the data set with descriptive activity names
 
-message("Performing Step 4: Re-label the dataset w/ descriptive names")
+message("Re-label the dataset w/ descriptive names")
 
 names(subjects) <- "subject"
 data.cleaned <- cbind(subjects, y, X)
 write.table(data.cleaned, 
-            file.path(current.wd, "merged_and_cleaned_dataset.txt"))
+            file.path(current.wd, "merged_data.txt"))
 
-message("merged_and_cleaned_dataset.txt file created!")
+message("merged_data.txt file created!")
 
-# --------------------------------------------------------------------
-# 5. Creates an independent tidy data set with the average of 
-#    each variable for each activity and each subject.
-# --------------------------------------------------------------------
+# Creates tidy data set with the average of the variable
 
-message("Performing Step 5: Create the Tidy dataset")
+message("Create the Tidy dataset")
 
 subjects.unique <- unique(subjects)[,1]
 subjects.len <-  length(subjects.unique)
