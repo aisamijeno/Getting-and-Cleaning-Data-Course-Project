@@ -8,9 +8,10 @@ This code book describes the variables, the data, and any transformations or wor
 *****
 * Original description: [Human Activity Recognition Using Smartphones Data Set](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 * Source of the original data: [Data in zip File](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+<br>
 
-#### Dataset Information ##
-
+#### Dataset Information
+*****
 (*adapted from the `README.txt` file in the Dataset package*)
 
 **Human Activity Recognition Using Smartphones Dataset**
@@ -33,9 +34,10 @@ body acceleration and gravity.
 The gravitational force is assumed to have only low frequency components, 
 therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained 
 by calculating variables from the time and frequency domain. 
+<br>
 
-### The Data Package ###
-
+#### The Data Package
+*****
 The dataset includes the following files:
 
 - `README.txt`
@@ -63,8 +65,10 @@ following:
 
 - `train/Inertial Signals/body_gyro_x_train.txt`: The angular velocity vector measured by the gyroscope for each window sample. 
                                                   These values are expressed in `radians-per-second`. 
+<br>
 
-## Data Manipulation details
+#### Data Manipulation Details
+*****
 
 The `run_analysis.R` script performs the following operations to clean and transform the data:
      0. Read the dataset
@@ -75,8 +79,7 @@ The `run_analysis.R` script performs the following operations to clean and trans
      5. Creates a second, independent tidy data set with the average of each variable 
          for each activity and each subject.
 
-
-### Merges the training and the test sets to create one single data set.
+**Merges the training and the test sets to create one single data set.**
 
 * `train/X_train.txt` & `test/X_test.txt`: this results in a `10299x561` data frame,
                                             as reported in the original description 
@@ -86,7 +89,7 @@ The `run_analysis.R` script performs the following operations to clean and trans
 
 * `train/y_train.txt` & `test/y_test.txt`: this results in a `10299 x 1` data frame (as well) with activity IDs.
 
-### Extracts only the measurements on the mean and standard deviation for each measurement. 
+**Extracts only the measurements on the mean and standard deviation for each measurement.** 
 
 To perform this step, the script reads the file `features.txt`, and extracts only the measurements of the 
 *mean* and the *standard deviation* of each measurement/example.
@@ -95,7 +98,7 @@ This results in a `10299 x 66` data frame, where `66` out of `561` features are 
 
 All measurements correspond to `numeric` (real) numbers in the range `(-1, 1)`.
 
-### Uses descriptive activity names to name the activities in the data set ###
+**Uses descriptive activity names to name the activities in the data set**
 
 In this step, the script reads the file `activity_labels.txt`, and applies descriptive 
 activity names to name the activities in the data set, namely:
@@ -107,7 +110,7 @@ activity names to name the activities in the data set, namely:
 - STANDING
 - LAYING
 
-### Appropriately labels the data set with descriptive variable names. ###
+**Appropriately labels the data set with descriptive variable names.**
 
 The script properly labels the dataset with descriptive names:
 all feature names and activity names are converted to ,
@@ -190,13 +193,15 @@ Names of the attributes corresponds to:
 - "fbodybodygyrojerkmag-std"
 
 The result is saved as `merged_and_cleaned_dataset.txt`. 
+<br>
 
-### Create the Tidy Dataset
+#### Create the Tidy Dataset
+*****
 
 Finally, the script creates a second, and independent **tidy dataset** with the average
 of each measurement for each activity and each subject.
 
-The result is saved in the `tidy_dataset_with_average_values.txt` file, containing a `180x68` data frame, resulting
+The result is saved in the `tidy_data.txt` file, containing a `180x68` data frame, resulting
 from `30` **subjects** and `6` **activities** (thus `180` rows, w/ averages).
 
 Again, the data frame contains:

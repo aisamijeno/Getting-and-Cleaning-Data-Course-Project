@@ -74,5 +74,5 @@ After performing the analysis, the following files will be created:
 * Use data: to read and use the data it is necessary to run the following command:
 
 ```
-data <- read.table("tidy_dataset.txt")
+data <- read.table("tidy_data.txt")
 ```
